@@ -1,0 +1,54 @@
+import { AlertTriangle, ArrowUpRight, Check, Clock3, Download, Filter, MoreHorizontal, Plus, Search, ShieldCheck, TrendingUp } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { toast } from "sonner";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Progress } from "@/components/ui/progress";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { adminQueues, adminUsers, adCampaigns, companies, dashboardStats, dataQualityRows, moderationQueue, newsFeed, partners, reports, searchBreakdown, securityEvents, sources, trafficSeries, verificationRequests } from "@/lib/lbc-data";
+
+type Row = Record<string, unknown>;
+
+const sectionData: Record<string, { title: string; intro: string; columns: [string, string][]; rows: readonly Row[] }> = {
+  entreprises: { title: "Gestion des entreprises", intro: "Contrôlez les fiches, propriétaires et informations de contact.", columns: [["name", "Entreprise"], ["sector", "Secteur"], ["commune", "Commune"], ["status", "Statut"]], rows: companies },
+  utilisateurs: { title: "Utilisateurs et accès", intro: "Gérez les comptes, rôles et niveaux d'accès.", columns: [["name", "Nom"], ["email", "E-mail"], ["role", "Rôle"], ["status", "Statut"], ["lastSeen", "Dernière activité"]], rows: adminUsers },
+  actualites: { title: "Gestion des actualités", intro: "Relisez les publications et planifiez leur diffusion.", columns: [["title", "Titre"], ["source", "Source"], ["category", "Catégorie"], ["date", "Publication"]], rows: newsFeed },
+  sources: { title: "Sources d'information", intro: "Suivez la fraîcheur et l'activité des sources partenaires.", columns: [["name", "Source"], ["type", "Type"], ["items", "Contenus"], ["fresh", "Fraîcheur"], ["status", "Statut"]], rows: sources },
+  verifications: { title: "Demandes de vérification", intro: "Examinez les pièces fournies avant d'attribuer le badge de confiance.", columns: [["company", "Entreprise"], ["commune", "Commune"], ["docs", "Pièces"], ["submitted", "Reçue"], ["status", "Statut"]], rows: verificationRequests },
+  signalements: { title: "Signalements", intro: "Traitez les erreurs, abus et informations expirées remontés.", columns: [["id", "Référence"], ["target", "Élément"], ["type", "Motif"], ["priority", "Priorité"], ["status", "Statut"]], rows: reports },
+  moderation: { title: "File de modération", intro: "Validez les contenus avant leur publication sur LBC.", columns: [["item", "Contenu"], ["kind", "Type"], ["author", "Auteur"], ["submitted", "Soumis"], ["status", "Statut"]], rows: moderationQueue },
+  publicite: { title: "Publicité", intro: "Pilotez les campagnes et leurs performances.", columns: [["name", "Campagne"], ["advertiser", "Annonceur"], ["placement", "Emplacement"], ["impressions", "Impressions"], ["clicks", "Clics"], ["budget", "Budget"], ["status", "Statut"]], rows: adCampaigns },
+  partenariats: { title: "Partenariats", intro: "Centralisez les institutions et organisations partenaires.", columns: [["name", "Partenaire"], ["type", "Type"], ["scope", "Périmètre"], ["since", "Depuis"], ["status", "Statut"]], rows: partners },
+  securite: { title: "Sécurité et journal d'activité", intro: "Surveillez les accès et événements sensibles.", columns: [["time", "Heure"], ["event", "Événement"], ["actor", "Acteur"], ["ip", "Adresse IP"], ["level", "Niveau"]], rows: securityEvents },
+};
+
+export function AdminDashboard() {
+  return <div className="space-y-7">
+    <div className="flex flex-wrap items-end justify-between gap-3"><div><p className="text-sm font-bold text-secondary">Jeudi 17 septembre 2026</p><h2 className="mt-1 font-display text-3xl font-extrabold text-primary">Bonjour Pinel, voici LBC aujourd'hui.</h2></div><Button onClick={() => toast.success("Rapport préparé pour l'export.")} variant="outline"><Download className="size-4" /> Exporter le rapport</Button></div>
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{dashboardStats.map((stat) => <div key={stat.label} className="rounded-xl border border-border bg-card p-5 lbc-card-shadow"><div className="flex items-center justify-between"><span className="flex size-10 items-center justify-center rounded-lg bg-secondary/10 text-secondary"><stat.icon className="size-5" /></span><TrendingUp className="size-4 text-lbc-sage" /></div><p className="mt-5 font-display text-3xl font-extrabold text-primary">{stat.value}</p><p className="text-sm font-bold">{stat.label}</p><p className="mt-1 text-xs text-muted-foreground">{stat.delta}</p></div>)}</div>
+    <div className="grid gap-6 xl:grid-cols-[1.55fr_1fr]"><div className="rounded-xl border border-border bg-card p-5 lbc-card-shadow"><div className="mb-5"><h3 className="font-display text-lg font-extrabold text-primary">Activité des 7 derniers jours</h3><p className="text-sm text-muted-foreground">Visites, recherches et demandes à l'assistant</p></div><div className="h-72"><ResponsiveContainer width="100%" height="100%"><BarChart data={trafficSeries}><CartesianGrid strokeDasharray="3 3" vertical={false} /><XAxis dataKey="day" /><YAxis /><Tooltip /><Bar dataKey="visites" fill="var(--secondary)" radius={[4,4,0,0]} /><Bar dataKey="recherches" fill="var(--lbc-sage)" radius={[4,4,0,0]} /><Bar dataKey="ia" fill="var(--accent)" radius={[4,4,0,0]} /></BarChart></ResponsiveContainer></div></div><div className="rounded-xl border border-border bg-card p-5 lbc-card-shadow"><h3 className="font-display text-lg font-extrabold text-primary">Recherches par rubrique</h3><div className="mt-6 space-y-5">{searchBreakdown.map((item) => <div key={item.name}><div className="mb-2 flex justify-between text-sm"><span className="font-semibold">{item.name}</span><strong>{item.value} %</strong></div><Progress value={item.value} /></div>)}</div></div></div>
+    <div><h3 className="font-display text-xl font-extrabold text-primary">Files prioritaires</h3><div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">{adminQueues.map((queue) => <div key={queue.label} className="rounded-xl border border-border bg-card p-5"><p className="font-display text-3xl font-extrabold text-primary">{queue.count}</p><p className="mt-2 font-bold">{queue.label}</p><p className="mt-1 text-xs text-muted-foreground">{queue.detail}</p><Button variant="ghost" size="sm" className="mt-3 px-0 text-secondary">Ouvrir <ArrowUpRight className="size-3" /></Button></div>)}</div></div>
+  </div>;
+}
+
+export function AdminSection({ section }: { section: string }) {
+  if (section === "statistiques") return <AdminDashboard />;
+  if (section === "qualite") return <QualityPage />;
+  return <AdminTable key={section} section={section} />;
+}
+
+function AdminTable({ section }: { section: string }) {
+  const config = sectionData[section] ?? sectionData["entreprises"]!;
+  const [query, setQuery] = useState("");
+  const rows = useMemo(() => config.rows.filter((row) => Object.values(row).join(" ").toLowerCase().includes(query.toLowerCase())), [config.rows, query]);
+  return <div className="space-y-6"><div className="flex flex-wrap items-end justify-between gap-4"><div><h2 className="font-display text-3xl font-extrabold text-primary">{config.title}</h2><p className="mt-2 text-sm text-muted-foreground">{config.intro}</p></div><Button onClick={() => toast.success("Nouvel élément prêt à être renseigné.")}><Plus className="size-4" /> Ajouter</Button></div><div className="flex flex-wrap gap-3"><div className="flex min-w-64 flex-1 items-center gap-2 rounded-lg border border-input bg-card px-3"><Search className="size-4 text-muted-foreground" /><Input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher dans cette liste…" className="border-0 shadow-none focus-visible:ring-0" /></div><Button variant="outline"><Filter className="size-4" /> Filtres</Button><Button variant="outline" onClick={() => toast.success("Export CSV préparé.")}><Download className="size-4" /> Exporter</Button></div><div className="overflow-hidden rounded-xl border border-border bg-card lbc-card-shadow"><Table><TableHeader><TableRow>{config.columns.map(([, label]) => <TableHead key={label}>{label}</TableHead>)}<TableHead className="w-14">Actions</TableHead></TableRow></TableHeader><TableBody>{rows.map((row, index) => <TableRow key={index}>{config.columns.map(([key]) => <TableCell key={key} className={key === "status" || key === "level" || key === "priority" ? "font-bold text-secondary" : ""}>{String(row[key] ?? "—")}</TableCell>)}<TableCell><Button size="icon-sm" variant="ghost" aria-label="Actions" onClick={() => toast("Menu d'actions ouvert.")}><MoreHorizontal className="size-4" /></Button></TableCell></TableRow>)}</TableBody></Table>{!rows.length && <p className="p-10 text-center text-sm text-muted-foreground">Aucun résultat pour cette recherche.</p>}</div></div>;
+}
+
+function QualityPage() {
+  return <div className="space-y-6"><div><h2 className="font-display text-3xl font-extrabold text-primary">Qualité des données</h2><p className="mt-2 text-sm text-muted-foreground">Mesurez la fraîcheur, la complétude et les doublons avant publication.</p></div><div className="grid gap-4 md:grid-cols-3"><QualityStat icon={Check} value="81 %" label="Complétude moyenne" /><QualityStat icon={Clock3} value="7,2 j" label="Âge moyen des données" /><QualityStat icon={AlertTriangle} value="25" label="Doublons à traiter" /></div><div className="overflow-hidden rounded-xl border border-border bg-card"><Table><TableHeader><TableRow><TableHead>Ensemble</TableHead><TableHead>Fraîcheur</TableHead><TableHead>Complétude</TableHead><TableHead>Doublons</TableHead><TableHead>Responsable</TableHead><TableHead>Risque</TableHead></TableRow></TableHeader><TableBody>{dataQualityRows.map((row) => <TableRow key={row.source}><TableCell className="font-bold">{row.source}</TableCell><TableCell>{row.fresh} %</TableCell><TableCell>{row.complete} %</TableCell><TableCell>{row.duplicates}</TableCell><TableCell>{row.owner}</TableCell><TableCell className="font-bold text-secondary">{row.risk}</TableCell></TableRow>)}</TableBody></Table></div></div>;
+}
+
+function QualityStat({ icon: Icon, value, label }: { icon: typeof ShieldCheck; value: string; label: string }) { return <div className="rounded-xl border border-border bg-card p-5"><Icon className="size-5 text-secondary" /><p className="mt-4 font-display text-3xl font-extrabold text-primary">{value}</p><p className="text-sm text-muted-foreground">{label}</p></div>; }

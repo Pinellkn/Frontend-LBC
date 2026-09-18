@@ -1,0 +1,13 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { Flag, ShieldCheck } from "lucide-react";
+import { toast } from "sonner";
+
+import { PageSection, SectionHeading } from "@/components/lbc/page-tools";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+
+export const Route = createFileRoute("/signaler")({ head: () => ({ meta: [{ title: "Signaler une information — LBC" }, { name: "description", content: "Aidez LBC à maintenir des informations fiables et à jour." }, { property: "og:title", content: "Signaler une information — LBC" }, { property: "og:description", content: "Contribuez à la qualité des données LBC." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: ReportPage });
+function ReportPage() { return <PageSection className="pb-20"><div className="mx-auto max-w-2xl"><SectionHeading eyebrow="Qualité des données" title="Signaler une information" description="Une erreur, un doublon ou une offre expirée ? Votre signalement aide notre équipe à vérifier rapidement l'information." /><form className="mt-8 grid gap-5 rounded-2xl border border-border bg-card p-7 lbc-card-shadow" onSubmit={(event) => { event.preventDefault(); toast.success("Signalement transmis. Merci pour votre contribution."); }}><div className="grid gap-2"><Label>Type de problème</Label><Select required><SelectTrigger><SelectValue placeholder="Choisir un motif" /></SelectTrigger><SelectContent>{["Information erronée","Offre expirée","Doublon","Contenu inapproprié","Faux profil","Autre"].map((item) => <SelectItem key={item} value={item}>{item}</SelectItem>)}</SelectContent></Select></div><div className="grid gap-2"><Label htmlFor="url">Lien ou nom de l'élément concerné</Label><Input id="url" required placeholder="Entreprise, offre, actualité ou adresse de la page" /></div><div className="grid gap-2"><Label htmlFor="details">Détails</Label><Textarea id="details" required rows={6} placeholder="Expliquez ce qui doit être vérifié…" /></div><div className="rounded-lg bg-lbc-success/15 p-4 text-sm text-foreground"><ShieldCheck className="mr-2 inline size-4 text-lbc-sage" /> Votre identité ne sera jamais communiquée à la structure signalée.</div><Button type="submit" size="lg"><Flag className="size-4" /> Envoyer le signalement</Button></form></div></PageSection>; }

@@ -1,0 +1,20 @@
+# Node / web
+node_modules/
+dist/
+.vite/
+.vite-temp/
+
+# Flutter / Android / iOS
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+android/.gradle/
+android/.kotlin/
+ios/Pods/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
