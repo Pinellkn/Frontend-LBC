@@ -1,7 +1,5 @@
 # Benin Connect Hub
 
-je t’expliquer un peu le projet LBC.
-
 LBC signifie LBonCoin, avec comme vision « Tout le Bénin en un clic ».
 
 L'idée est de créer une grande plateforme numérique dédiée au Bénin, qui permet de retrouver au même endroit les informations utiles sur les entreprises, les emplois, les actualités et les informations pratiques.
@@ -140,35 +138,9 @@ On commence avec un MVP, on teste le concept, on référence les premières entr
 
 https://stitch.withgoogle.com/projects/506470393162524542?pli=1
 
-ceci est le lien de quelques maquettes va vérifier 
 
-je veux l'application web complet front de ce projet ......tu vas suivre exactement les données .....un à un.....tout et tout....le projet complet ......
 
-les couleurs ....les ecritures ....le frontend doit etre aboslument jolie .....
 
-le logo tu choisis 1 parmis les logos qui sont dans l'image .....et je  veux pas des images en json ou quoi là ...je vex des images en soit png jpg et autres ....
-
-et le favicon.ico du projet doit etre le logo du projet pas le favicon de lovable......
-
-le projet complet frontend ...bien fait nickel.....react et autres .....super .....
-
-je t'ai envoyé un zip.....j'ai dejà commencé....masi l'autre IA n'a pas fini.....
-
-prendre le projet continue la suite .....et je veux que les images les logos egalement et autres ....soit claire et lisible en 3D bien fait .....
-
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/6c80190b-9bcd-46d2-acf9-3ffe3335a77b).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
 git clone <this-repository-url>
