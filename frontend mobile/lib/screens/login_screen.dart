@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme.dart';
+import 'forgot_password_screen.dart';
+import 'business_signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -73,14 +75,18 @@ class _LoginScreenState extends State<LoginScreen> {
           const SizedBox(height: 14),
           Center(
             child: TextButton(
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+              ),
               child: const Text("Mot de passe oublié ?"),
             ),
           ),
           const Divider(height: 32),
           OutlinedButton.icon(
             style: OutlinedButton.styleFrom(minimumSize: const Size.fromHeight(50)),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => const BusinessSignupScreen()),
+            ),
             icon: const Icon(Icons.apartment_rounded, size: 18),
             label: const Text("Créer un compte entreprise"),
           ),
