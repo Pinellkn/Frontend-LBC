@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 let splashPlayed = false;
 
 const SHOW_MS = 2800;
-const FADE_MS = 700;
+const FADE_MS = 1100;
 
 function MagnifierC() {
   return (
@@ -150,7 +150,7 @@ export function SplashScreen() {
 
   return (
     <div
-      className={`lbc-splash fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden bg-[#0c314c] px-6 text-white ${
+      className={`lbc-splash fixed inset-0 z-[100] overflow-hidden text-white ${
         phase === "ready" ? "cursor-pointer" : ""
       }`}
       data-phase={phase}
@@ -160,40 +160,52 @@ export function SplashScreen() {
       aria-live="polite"
       aria-label={phase === "ready" ? "Cliquez pour continuer vers LBonCoin" : "Chargement de LBonCoin"}
     >
-      <div className="relative z-10 flex flex-col items-center text-center font-sans">
-        <div className="lbc-splash-logo flex items-center gap-[0.1em] text-[clamp(3.25rem,8vw,6rem)] font-semibold leading-none">
-          <span className="tracking-tight">LB</span>
-          <MagnifierC />
+      {/* Rideau : deux pans qui s'ouvrent au clic */}
+      <div className="lbc-splash-curtain lbc-splash-curtain-left" aria-hidden="true" />
+      <div className="lbc-splash-curtain lbc-splash-curtain-right" aria-hidden="true" />
+
+      <div className="lbc-splash-content absolute inset-0 flex flex-col items-center justify-center px-6 pb-[22vh] pt-8">
+        <div className="relative z-10 flex flex-col items-center text-center font-sans">
+          <div className="lbc-splash-logo flex items-center gap-[0.1em] text-[clamp(3rem,8vw,6rem)] font-semibold leading-none">
+            <span className="tracking-tight">LB</span>
+            <MagnifierC />
+          </div>
+          <p className="lbc-splash-word mt-4 text-[clamp(2.1rem,5.4vw,4rem)] font-bold leading-none tracking-tight">
+            LBonCoin
+          </p>
+          <p className="lbc-splash-tagline mt-3 text-[clamp(0.95rem,1.7vw,1.3rem)] font-medium text-white/85">
+            {"Tout le Bénin en un clic"}
+          </p>
         </div>
-        <p className="lbc-splash-word mt-5 text-[clamp(2.25rem,5.4vw,4rem)] font-bold leading-none tracking-tight">
-          LBonCoin
-        </p>
-        <p className="lbc-splash-tagline mt-3 text-[clamp(0.95rem,1.7vw,1.3rem)] font-medium text-white/85">
-          {"Tout le B\u00e9nin en un clic"}
-        </p>
+
+        <div className="relative z-10 mt-10 flex min-h-[7.5rem] flex-col items-center justify-start">
+          {phase === "loading" ? (
+            <div className="lbc-splash-loading flex flex-col items-center gap-3">
+              <span
+                className="lbc-splash-spinner size-9 rounded-full border-[3px] border-white/20 border-t-white"
+                aria-hidden="true"
+              />
+              <span className="text-sm font-semibold tracking-wide text-white/80">
+                Chargement
+                <span className="lbc-splash-dots" aria-hidden="true" />
+              </span>
+            </div>
+          ) : (
+            <div className="lbc-splash-prompt flex flex-col items-center gap-4">
+              <span className="lbc-splash-tap flex size-14 items-center justify-center rounded-full border border-white/40 bg-white/15">
+                <MousePointerClick className="size-7" aria-hidden="true" />
+              </span>
+              <span className="rounded-full bg-white px-5 py-2.5 text-center text-sm font-bold tracking-wide text-[#0c314c] shadow-lg sm:text-base">
+                Cliquez n'importe où pour continuer
+              </span>
+            </div>
+          )}
+        </div>
       </div>
-      {phase === "loading" ? (
-        <div className="lbc-splash-loading absolute inset-x-0 bottom-[calc(30vh+1.75rem)] z-10 flex flex-col items-center gap-3">
-          <span
-            className="lbc-splash-spinner size-9 rounded-full border-[3px] border-white/20 border-t-white"
-            aria-hidden="true"
-          />
-          <span className="text-sm font-semibold tracking-wide text-white/80">
-            Chargement
-            <span className="lbc-splash-dots" aria-hidden="true" />
-          </span>
-        </div>
-      ) : (
-        <div className="lbc-splash-prompt absolute inset-x-0 bottom-[calc(30vh+1.75rem)] z-10 flex flex-col items-center gap-3">
-          <span className="lbc-splash-tap flex size-12 items-center justify-center rounded-full border border-white/30 bg-white/10">
-            <MousePointerClick className="size-6" aria-hidden="true" />
-          </span>
-          <span className="text-sm font-semibold tracking-wide text-white">
-            Cliquez n'importe où pour continuer
-          </span>
-        </div>
-      )}
-      <Skyline />
+
+      <div className="lbc-splash-content">
+        <Skyline />
+      </div>
     </div>
   );
 }
