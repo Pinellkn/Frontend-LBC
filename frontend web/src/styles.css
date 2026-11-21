@@ -237,16 +237,6 @@
   will-change: transform;
 }
 
-/* galon du haut */
-.lbc-splash-curtain::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 26px;
-  background: linear-gradient(180deg, #f3d37a 0%, #c9962b 55%, #8a6414 100%);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
-}
-
 /* franges du bas */
 .lbc-splash-curtain::after {
   content: "";
