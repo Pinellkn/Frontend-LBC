@@ -191,11 +191,11 @@ export function SplashScreen() {
               </span>
             </div>
           ) : (
-            <div className="lbc-splash-prompt flex flex-col items-center gap-4">
-              <span className="lbc-splash-tap flex size-14 items-center justify-center rounded-full border border-white/40 bg-white/15">
-                <MousePointerClick className="size-7" aria-hidden="true" />
+            <div className="lbc-splash-prompt flex flex-col items-center gap-3">
+              <span className="lbc-splash-tap flex size-10 items-center justify-center rounded-full border border-white/25 bg-white/5">
+                <MousePointerClick className="size-5" aria-hidden="true" />
               </span>
-              <span className="rounded-full bg-white px-5 py-2.5 text-center text-sm font-bold tracking-wide text-[#0c314c] shadow-lg sm:text-base">
+              <span className="text-center text-sm font-medium tracking-wide text-white/75">
                 Cliquez n'importe où pour continuer
               </span>
             </div>
