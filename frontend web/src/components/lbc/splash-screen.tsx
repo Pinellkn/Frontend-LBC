@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 let splashPlayed = false;
 
 const SHOW_MS = 2800;
-const FADE_MS = 1100;
+const FADE_MS = 2100;
 
 function MagnifierC() {
   return (
