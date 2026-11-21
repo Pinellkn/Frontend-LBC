@@ -222,7 +222,7 @@
   top: 0;
   bottom: 0;
   width: 50.4%;
-  background-color: #6b0b1b;
+  background-color: #0c314c;
   background-image:
     repeating-linear-gradient(
       90deg,
@@ -232,7 +232,7 @@
       rgba(0, 0, 0, 0.12) 52px,
       rgba(0, 0, 0, 0.42) 76px
     ),
-    linear-gradient(180deg, #8a1226 0%, #5e0918 55%, #3f0510 100%);
+    linear-gradient(180deg, #124469 0%, #0c314c 55%, #082338 100%);
   transition: transform 1.9s cubic-bezier(0.65, 0, 0.25, 1);
   will-change: transform;
 }
