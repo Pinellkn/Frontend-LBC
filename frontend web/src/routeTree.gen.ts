@@ -12,9 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AssistantRouteImport } from './routes/assistant'
+import { Route as BienvenueRouteImport } from './routes/bienvenue'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as EspaceEntrepriseRouteImport } from './routes/espace-entreprise'
 import { Route as EspaceUtilisateurRouteImport } from './routes/espace-utilisateur'
+import { Route as PresentationRouteImport } from './routes/presentation'
 import { Route as PublierActualiteRouteImport } from './routes/publier-actualite'
 import { Route as PublierOffreRouteImport } from './routes/publier-offre'
 import { Route as SignalerRouteImport } from './routes/signaler'
@@ -45,6 +47,11 @@ const AssistantRoute = AssistantRouteImport.update({
   path: '/assistant',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BienvenueRoute = BienvenueRouteImport.update({
+  id: '/bienvenue',
+  path: '/bienvenue',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConnexionRoute = ConnexionRouteImport.update({
   id: '/connexion',
   path: '/connexion',
@@ -58,6 +65,11 @@ const EspaceEntrepriseRoute = EspaceEntrepriseRouteImport.update({
 const EspaceUtilisateurRoute = EspaceUtilisateurRouteImport.update({
   id: '/espace-utilisateur',
   path: '/espace-utilisateur',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresentationRoute = PresentationRouteImport.update({
+  id: '/presentation',
+  path: '/presentation',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PublierActualiteRoute = PublierActualiteRouteImport.update({
@@ -135,9 +147,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/assistant': typeof AssistantRoute
+  '/bienvenue': typeof BienvenueRoute
   '/connexion': typeof ConnexionRoute
   '/espace-entreprise': typeof EspaceEntrepriseRoute
   '/espace-utilisateur': typeof EspaceUtilisateurRoute
+  '/presentation': typeof PresentationRoute
   '/publier-actualite': typeof PublierActualiteRoute
   '/publier-offre': typeof PublierOffreRoute
   '/signaler': typeof SignalerRoute
@@ -156,9 +170,11 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/assistant': typeof AssistantRoute
+  '/bienvenue': typeof BienvenueRoute
   '/connexion': typeof ConnexionRoute
   '/espace-entreprise': typeof EspaceEntrepriseRoute
   '/espace-utilisateur': typeof EspaceUtilisateurRoute
+  '/presentation': typeof PresentationRoute
   '/publier-actualite': typeof PublierActualiteRoute
   '/publier-offre': typeof PublierOffreRoute
   '/signaler': typeof SignalerRoute
@@ -179,9 +195,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin': typeof AdminRouteWithChildren
   '/assistant': typeof AssistantRoute
+  '/bienvenue': typeof BienvenueRoute
   '/connexion': typeof ConnexionRoute
   '/espace-entreprise': typeof EspaceEntrepriseRoute
   '/espace-utilisateur': typeof EspaceUtilisateurRoute
+  '/presentation': typeof PresentationRoute
   '/publier-actualite': typeof PublierActualiteRoute
   '/publier-offre': typeof PublierOffreRoute
   '/signaler': typeof SignalerRoute
@@ -203,9 +221,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/assistant'
+    | '/bienvenue'
     | '/connexion'
     | '/espace-entreprise'
     | '/espace-utilisateur'
+    | '/presentation'
     | '/publier-actualite'
     | '/publier-offre'
     | '/signaler'
@@ -224,9 +244,11 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/assistant'
+    | '/bienvenue'
     | '/connexion'
     | '/espace-entreprise'
     | '/espace-utilisateur'
+    | '/presentation'
     | '/publier-actualite'
     | '/publier-offre'
     | '/signaler'
@@ -246,9 +268,11 @@ export interface FileRouteTypes {
     | '/'
     | '/admin'
     | '/assistant'
+    | '/bienvenue'
     | '/connexion'
     | '/espace-entreprise'
     | '/espace-utilisateur'
+    | '/presentation'
     | '/publier-actualite'
     | '/publier-offre'
     | '/signaler'
@@ -269,9 +293,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRouteWithChildren
   AssistantRoute: typeof AssistantRoute
+  BienvenueRoute: typeof BienvenueRoute
   ConnexionRoute: typeof ConnexionRoute
   EspaceEntrepriseRoute: typeof EspaceEntrepriseRoute
   EspaceUtilisateurRoute: typeof EspaceUtilisateurRoute
+  PresentationRoute: typeof PresentationRoute
   PublierActualiteRoute: typeof PublierActualiteRoute
   PublierOffreRoute: typeof PublierOffreRoute
   SignalerRoute: typeof SignalerRoute
@@ -309,6 +335,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AssistantRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bienvenue': {
+      id: '/bienvenue'
+      path: '/bienvenue'
+      fullPath: '/bienvenue'
+      preLoaderRoute: typeof BienvenueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/connexion': {
       id: '/connexion'
       path: '/connexion'
@@ -328,6 +361,13 @@ declare module '@tanstack/react-router' {
       path: '/espace-utilisateur'
       fullPath: '/espace-utilisateur'
       preLoaderRoute: typeof EspaceUtilisateurRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presentation': {
+      id: '/presentation'
+      path: '/presentation'
+      fullPath: '/presentation'
+      preLoaderRoute: typeof PresentationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/publier-actualite': {
@@ -447,9 +487,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRouteWithChildren,
   AssistantRoute: AssistantRoute,
+  BienvenueRoute: BienvenueRoute,
   ConnexionRoute: ConnexionRoute,
   EspaceEntrepriseRoute: EspaceEntrepriseRoute,
   EspaceUtilisateurRoute: EspaceUtilisateurRoute,
+  PresentationRoute: PresentationRoute,
   PublierActualiteRoute: PublierActualiteRoute,
   PublierOffreRoute: PublierOffreRoute,
   SignalerRoute: SignalerRoute,

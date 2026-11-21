@@ -210,3 +210,120 @@
 @utility lbc-card-shadow {
   box-shadow: 0 18px 60px color-mix(in oklab, var(--lbc-deep) 11%, transparent);
 }
+
+/* ---------- Page de chargement (splash) ---------- */
+.lbc-splash {
+  transition:
+    opacity 0.7s ease,
+    visibility 0.7s ease;
+  background-image: radial-gradient(ellipse at 50% 42%, #0f3a5a 0%, #0c314c 55%, #0a2b44 100%);
+}
+
+.lbc-splash[data-phase="hide"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes lbc-splash-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lbc-splash-skyline {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lbc-splash-logo {
+  animation: lbc-splash-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+}
+
+.lbc-splash-word {
+  animation: lbc-splash-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+.lbc-splash-tagline {
+  animation: lbc-splash-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+}
+
+.lbc-splash-skyline {
+  mask-image: linear-gradient(to top, transparent 0, black 14%);
+  animation: lbc-splash-skyline 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lbc-splash,
+  .lbc-splash-logo,
+  .lbc-splash-word,
+  .lbc-splash-tagline,
+  .lbc-splash-skyline {
+    animation: none;
+    transition-duration: 0.01s;
+  }
+}
+
+/* Indicateur de chargement du splash */
+@keyframes lbc-splash-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes lbc-splash-dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75%,
+  100% {
+    content: "...";
+  }
+}
+
+.lbc-splash-loading {
+  animation: lbc-splash-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+}
+
+.lbc-splash-spinner {
+  display: inline-block;
+  animation: lbc-splash-spin 0.9s linear infinite;
+}
+
+.lbc-splash-dots {
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+}
+
+.lbc-splash-dots::after {
+  content: "";
+  animation: lbc-splash-dots 1.4s steps(1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lbc-splash-loading {
+    animation: none;
+  }
+
+  .lbc-splash-spinner {
+    animation-duration: 2.4s;
+  }
+}

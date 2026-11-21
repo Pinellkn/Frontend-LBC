@@ -3,6 +3,7 @@ import { ArrowLeft, ExternalLink, ShieldCheck } from "lucide-react";
 
 import { PracticalCard } from "@/components/lbc/cards";
 import { PageSection, StatusBadge } from "@/components/lbc/page-tools";
+import { ShareButton } from "@/components/lbc/share-button";
 import { Button } from "@/components/ui/button";
 import { practicalInfos } from "@/lib/lbc-data";
 
@@ -50,6 +51,9 @@ function PracticalDetail() {
               </StatusBadge>
             </div>
             <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight text-primary md:text-4xl">{info.title}</h1>
+            <div className="mt-4">
+              <ShareButton path={`/infos-pratiques/${info.slug}`} title={info.title} withLabel />
+            </div>
             <p className="mt-4 text-lg leading-8 text-muted-foreground">{info.description}</p>
 
             <h2 className="mt-8 font-display text-xl font-extrabold text-primary">Les étapes</h2>

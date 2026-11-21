@@ -1,6 +1,5 @@
 import { Link, createFileRoute, notFound } from "@tanstack/react-router";
 import {
-  BadgeCheck,
   Building2,
   CalendarDays,
   Clock3,
@@ -17,6 +16,8 @@ import {
 import verified3d from "@/assets/lbc-verified-3d.png";
 import { OpportunityCard } from "@/components/lbc/cards";
 import { PageSection, StatusBadge } from "@/components/lbc/page-tools";
+import { ShareButton } from "@/components/lbc/share-button";
+import { VerificationBadge, verificationLevelOf } from "@/components/lbc/verification-badge";
 import { Button } from "@/components/ui/button";
 import { companies, newsFeed, opportunities } from "@/lib/lbc-data";
 
@@ -72,9 +73,7 @@ function CompanyPage() {
               <div className="flex flex-wrap items-center gap-3">
                 <h1 className="font-display text-3xl font-extrabold md:text-4xl">{company.name}</h1>
                 {company.status === "Vérifiée" && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-extrabold text-accent-foreground">
-                    <BadgeCheck className="size-3.5" /> Entreprise vérifiée
-                  </span>
+                  <VerificationBadge level={verificationLevelOf(company.slug)} showLevel className="rounded-full px-3" />
                 )}
               </div>
               <p className="mt-2 text-primary-foreground/80">
@@ -98,6 +97,12 @@ function CompanyPage() {
                     </a>
                   </Button>
                 )}
+                <ShareButton
+                  path={`/entreprises/${company.slug}`}
+                  title={`${company.name} sur LBonCoin`}
+                  withLabel
+                  className="h-9 border-primary-foreground/30 bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
+                />
               </div>
             </div>
             <img src={verified3d} alt="" className="hidden size-24 object-contain md:block" />
@@ -190,9 +195,13 @@ function CompanyPage() {
                 <span className="text-sm text-muted-foreground">({company.reviews} avis)</span>
               </div>
               <div className="mt-4">
-                <StatusBadge tone={company.status === "Vérifiée" ? "success" : "neutral"}>
-                  <ShieldCheck className="mr-1 size-3.5" /> {company.status}
-                </StatusBadge>
+                {company.status === "Vérifiée" ? (
+                  <VerificationBadge level={verificationLevelOf(company.slug)} showLevel />
+                ) : (
+                  <StatusBadge tone="neutral">
+                    <ShieldCheck className="mr-1 size-3.5" /> {company.status}
+                  </StatusBadge>
+                )}
               </div>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
                 Les fiches vérifiées sont contrôlées par l'équipe LBC (RCCM, IFU, coordonnées et activité réelle).

@@ -3,6 +3,7 @@ import { ArrowLeft, CalendarDays, Radio } from "lucide-react";
 
 import { NewsCard } from "@/components/lbc/cards";
 import { PageSection } from "@/components/lbc/page-tools";
+import { ShareButton } from "@/components/lbc/share-button";
 import { Button } from "@/components/ui/button";
 import { companies, newsFeed } from "@/lib/lbc-data";
 
@@ -52,6 +53,9 @@ function NewsArticle() {
               </span>
             </div>
             <h1 className="mt-4 font-display text-3xl font-extrabold leading-tight text-primary md:text-4xl">{item.title}</h1>
+            <div className="mt-4">
+              <ShareButton path={`/actualites/${item.slug}`} title={item.title} withLabel />
+            </div>
             <p className="mt-4 text-lg leading-8 text-foreground">{item.summary}</p>
             <div className="mt-6 grid gap-4 border-t border-border pt-6">
               {item.body.map((p) => (

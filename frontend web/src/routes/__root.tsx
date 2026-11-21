@@ -10,6 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import { AppShell } from "@/components/lbc/app-shell";
+import { SplashScreen } from "@/components/lbc/splash-screen";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import appCss from "../styles.css?url";
@@ -32,18 +33,24 @@ function NotFoundComponent() {
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: { error: unknown; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportLovableError(error instanceof Error ? error : new Error(String(error)), {
+      boundary: "tanstack_root_error_component",
+    });
   }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">La page n'a pas chargé</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Vous pouvez réessayer ou revenir à l'accueil.</p>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          La page n'a pas chargé
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Vous pouvez réessayer ou revenir à l'accueil.
+        </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <Button
             onClick={() => {
@@ -68,7 +75,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "LBC LBonCoin" },
-      { name: "description", content: "Tout le Bénin en un clic : entreprises, emplois, actualités et informations pratiques." },
+      {
+        name: "description",
+        content:
+          "Tout le Bénin en un clic : entreprises, emplois, actualités et informations pratiques.",
+      },
       { name: "author", content: "LBC LBonCoin" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -113,6 +124,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <SplashScreen />
       <AppShell>
         <Outlet />
       </AppShell>

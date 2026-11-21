@@ -3,6 +3,7 @@ import { ArrowRight, Building2, CalendarDays, Clock3, GraduationCap, MapPin, Sen
 
 import { OpportunityCard } from "@/components/lbc/cards";
 import { PageSection, StatusBadge } from "@/components/lbc/page-tools";
+import { ShareButton } from "@/components/lbc/share-button";
 import { Button } from "@/components/ui/button";
 import { companies, opportunities } from "@/lib/lbc-data";
 
@@ -122,6 +123,12 @@ function JobPage() {
                     Voir la structure
                   </Link>
                 </Button>
+                <ShareButton
+                  path={`/emplois/${o.id}`}
+                  title={`${o.title} — ${o.company}`}
+                  withLabel
+                  className="h-9 w-full justify-center rounded-md"
+                />
               </div>
               <p className="mt-4 text-xs leading-5 text-muted-foreground">
                 LBC ne demande jamais de frais de dossier. Signalez toute demande de paiement liée à une offre.

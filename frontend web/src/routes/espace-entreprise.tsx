@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import businessVerified from "@/assets/lbc-business-verified.jpg";
 import verified3d from "@/assets/lbc-verified-3d.png";
 import { PageSection, SectionHeading } from "@/components/lbc/page-tools";
+import { RoleGate } from "@/components/lbc/role-gate";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,8 +22,16 @@ export const Route = createFileRoute("/espace-entreprise")({
       { property: "og:description", content: "Gagnez en visibilité auprès de tout le Bénin." },
     ],
   }),
-  component: BusinessSpacePage,
+  component: BusinessSpaceGate,
 });
+
+function BusinessSpaceGate() {
+  return (
+    <RoleGate permission="referencerStructure">
+      <BusinessSpacePage />
+    </RoleGate>
+  );
+}
 
 const benefits = [
   { icon: Building2, title: "Votre page officielle", text: "Coordonnées, services, horaires et localisation, mis à jour par vous-même." },

@@ -2,7 +2,7 @@ import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import { Bell, ChevronLeft, LogOut, Menu, Search } from "lucide-react";
 import { useState } from "react";
 
-import lbcLogo from "@/assets/lbc-logo.png";
+import lbcLogoMark from "@/assets/lbc-logo-mark.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -27,7 +27,7 @@ export function AdminShell() {
   return <div className="min-h-screen bg-background text-foreground">
     <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 border-r border-sidebar-border bg-sidebar p-5 lg:block">
       <Link to="/admin" className="flex items-center gap-3 border-b border-sidebar-border pb-5">
-        <img src={lbcLogo} alt="LBC" className="size-11 rounded-lg object-cover" />
+        <span className="flex shrink-0 rounded-lg bg-white px-2 py-1.5"><img src={lbcLogoMark} alt="LBC" className="h-8 w-auto" /></span>
         <div><p className="font-display text-lg font-extrabold text-sidebar-foreground">LBC Admin</p><p className="text-xs text-sidebar-foreground/60">Centre de contrôle</p></div>
       </Link>
       <div className="mt-5 h-[calc(100vh-9rem)] overflow-y-auto pr-1">{navigation}</div>
